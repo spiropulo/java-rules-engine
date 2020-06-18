@@ -46,7 +46,7 @@ import com.engine.EngineTask;
 public class TastHelloWorld {
 	@Test
 	public void test_helloWorld() throws EngineException {
-		new EnginePipeline<String>(Arrays.asList(new SampleTask()), new EngineData<String>()).execute();
+		new EnginePipeline<String>(Arrays.asList(new SampleTask("Hello World!")), new EngineData<String>()).execute();
 	}
 }
 ```
