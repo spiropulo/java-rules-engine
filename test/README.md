@@ -45,21 +45,21 @@ The **sample** folder runs the tests described in our main README.md. If you fol
 ```
 
 ```diff
-+ TastAndEnginePipelineRules.java
++ TestAndEnginePipelineRules.java
   
   These tests describe EnginePipeline AND rules. EnginePipeline is the main engine component. AND
   rules past in while initialization will be part of every task executed by this instance.
 ```
 
 ```diff
-+ TastOrEnginePipelineRules.java
++ TestOrEnginePipelineRules.java
   
   These tests describe EnginePipeline OR rules. EnginePipeline is the main engine component. OR
   rules past in while initialization will be part of every task executed by this instance.
 ```
 
 ```diff
-+ TastAndOrEnginePipelineRules.java
++ TestAndOrEnginePipelineRules.java
   
   These tests describe how AND and OR rules behave when past in at initialization of a 
   an EnginePipeline. They are effectively treated just like any other AND, OR rule but they are 

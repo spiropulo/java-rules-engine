@@ -8,7 +8,7 @@ import com.engine.EnginePipeline;
 import com.engine.EngineTask;
 
 @SuppressWarnings("unchecked")
-public class TestAndOrRules extends TestParent{
+public class TestAndOrRules extends TestParent {
 
 	/**
 	 * ***************** AND, OR Rules *****************
@@ -19,7 +19,7 @@ public class TestAndOrRules extends TestParent{
 		EngineTask<String> t1 = t1();
 		t1.addOrRule(t()).addAndRule(f());
 		new EnginePipeline<String>(ts(t1), data).execute();
-		assert data.get("key1") != "one";
+		assert data.get("key1") == null;
 	}
 
 	@Test
@@ -28,7 +28,7 @@ public class TestAndOrRules extends TestParent{
 		EngineTask<String> t1 = t1();
 		t1.addOrRule(f()).addAndRule(t());
 		new EnginePipeline<String>(ts(t1), data).execute();
-		assert data.get("key1") != "one";
+		assert data.get("key1") == null;
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class TestAndOrRules extends TestParent{
 		EngineTask<String> t1 = t1();
 		t1.addOrRule(f()).addOrRule(t()).addAndRule(t());
 		new EnginePipeline<String>(ts(t1), data).execute();
-		assert data.get("key1") == "one";
+		assert data.get("key1").equals("one");
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class TestAndOrRules extends TestParent{
 		EngineTask<String> t1 = t1();
 		t1.addOrRule(f()).addOrRule(t()).addAndRule(t()).addAndRule(f());
 		new EnginePipeline<String>(ts(t1), data).execute();
-		assert data.get("key1") != "one";
+		assert data.get("key1") == null;
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class TestAndOrRules extends TestParent{
 		EngineTask<String> t1 = t1();
 		t1.addOrRule(t()).addOrRule(t()).addAndRule(t()).addAndRule(f());
 		new EnginePipeline<String>(ts(t1), data).execute();
-		assert data.get("key1") != "one";
+		assert data.get("key1") == null;
 	}
 
 	@Test
@@ -68,9 +68,9 @@ public class TestAndOrRules extends TestParent{
 		t2.addOrRule(t()).addOrRule(f()).addAndRule(t());
 		t3.addAndRule(f());
 		new EnginePipeline<String>(ts(t1, t2, t3), data).execute();
-		assert data.get("key1") != "one";
-		assert data.get("key2") == "two";
-		assert data.get("key3") != "three";
+		assert data.get("key1") == null;
+		assert data.get("key2").equals("two");
+		assert data.get("key3") == null;
 	}
 
 }

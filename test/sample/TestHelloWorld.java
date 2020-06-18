@@ -11,7 +11,7 @@ import com.engine.EngineTask;
 
 import engine.rules.SampleRule;
 
-public class TastHelloWorld {
+public class TestHelloWorld {
 	@Test
 	public void test_helloWorld_and() throws EngineException {
 		// First set the rule to true so we see Hello World! in the out put.

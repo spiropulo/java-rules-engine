@@ -28,8 +28,8 @@ public class TestOrRules {
 		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
-		assert data.get("key1") != "one";
-		assert data.get("key2") != "two";
+		assert data.get("key1") == null;
+		assert data.get("key2") == null;
 	}
 
 	@Test
@@ -40,8 +40,8 @@ public class TestOrRules {
 		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
-		assert data.get("key1") == "one";
-		assert data.get("key2") == "two";
+		assert data.get("key1").equals("one");
+		assert data.get("key2").equals("two");
 	}
 
 	@Test
@@ -52,8 +52,8 @@ public class TestOrRules {
 		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
-		assert data.get("key1") == "one";
-		assert data.get("key2") == "two";
+		assert data.get("key1").equals("one");
+		assert data.get("key2").equals("two");
 	}
 
 	@Test
@@ -64,8 +64,8 @@ public class TestOrRules {
 		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
-		assert data.get("key1") != "one";
-		assert data.get("key2") != "two";
+		assert data.get("key1") == null;
+		assert data.get("key2") == null;
 	}
 
 	@Test
@@ -77,8 +77,8 @@ public class TestOrRules {
 		tasks.add(new SampleTask("key2", "two").addOrRules(asList2));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
-		assert data.get("key1") != "one";
-		assert data.get("key2") == "two";
+		assert data.get("key1") == null;
+		assert data.get("key2").equals("two");
 	}
 
 }

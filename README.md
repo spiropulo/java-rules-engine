@@ -43,7 +43,7 @@ import com.engine.EngineException;
 import com.engine.EnginePipeline;
 import com.engine.EngineTask;
 
-public class TastHelloWorld {
+public class TestHelloWorld {
 	@Test
 	public void test_helloWorld() throws EngineException {
 		new EnginePipeline<String>(Arrays.asList(new SampleTask("Hello World!")), new EngineData<String>()).execute();
@@ -90,7 +90,7 @@ import com.engine.EngineTask;
 
 import engine.rules.SampleRule;
 
-public class TastHelloWorld {
+public class TestHelloWorld {
 	@Test
 	public void test_helloWorld_and() throws EngineException {
 -		// First set the rule to true so we see Hello World! in the out put.
@@ -140,7 +140,7 @@ import com.engine.EngineTask;
 
 import engine.rules.SampleRule;
 
-public class TastHelloWorld {
+public class TestHelloWorld {
 	@Test
 	public void test_helloWorld_or() throws EngineException {
 -		// First set one rule true and one false...

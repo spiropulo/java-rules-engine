@@ -21,8 +21,8 @@ public class TestNoRules {
 		tasks.add(new SampleTask("key2", "two"));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
-		assert data.get("key1") == "one";
-		assert data.get("key2") == "two";
+		assert data.get("key1").equals("one");
+		assert data.get("key2").equals("two");
 	}
 
 }
