@@ -7,8 +7,8 @@ import com.engine.EngineData;
 import com.engine.EngineRule;
 import com.engine.EngineTask;
 
-import engine.rules.TestRule;
-import engine.tasks.StringTask;
+import engine.rules.SampleRule;
+import engine.tasks.SampleTask;
 
 @SuppressWarnings("unchecked")
 public class TestParent {
@@ -36,23 +36,23 @@ public class TestParent {
 	}
 
 	protected EngineRule<String> f() {
-		return new TestRule(false);
+		return new SampleRule(false);
 	}
 
 	protected EngineRule<String> t() {
-		return new TestRule(true);
+		return new SampleRule(true);
 	}
 
 	protected EngineTask<String> t1() {
-		return new StringTask("key1", "one");
+		return new SampleTask("key1", "one");
 	}
 
 	protected EngineTask<String> t2() {
-		return new StringTask("key2", "two");
+		return new SampleTask("key2", "two");
 	}
 
 	protected EngineTask<String> t3() {
-		return new StringTask("key3", "three");
+		return new SampleTask("key3", "three");
 	}
 	
 }

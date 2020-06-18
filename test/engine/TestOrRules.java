@@ -12,8 +12,8 @@ import com.engine.EnginePipeline;
 import com.engine.EngineRule;
 import com.engine.EngineTask;
 
-import engine.rules.TestRule;
-import engine.tasks.StringTask;
+import engine.rules.SampleRule;
+import engine.tasks.SampleTask;
 
 public class TestOrRules {
 
@@ -23,9 +23,9 @@ public class TestOrRules {
 	@Test
 	public void test_FalseOrRule_fail() throws EngineException {
 		List<EngineTask<String>> tasks = new ArrayList<>();
-		List<EngineRule<String>> asList = Arrays.asList(new TestRule(false));
-		tasks.add(new StringTask("key1", "one").addOrRules(asList));
-		tasks.add(new StringTask("key2", "two").addOrRules(asList));
+		List<EngineRule<String>> asList = Arrays.asList(new SampleRule(false));
+		tasks.add(new SampleTask("key1", "one").addOrRules(asList));
+		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
 		assert data.get("key1") != "one";
@@ -35,9 +35,9 @@ public class TestOrRules {
 	@Test
 	public void test_TrueOrRule_pass() throws EngineException {
 		List<EngineTask<String>> tasks = new ArrayList<>();
-		List<EngineRule<String>> asList = Arrays.asList(new TestRule(true));
-		tasks.add(new StringTask("key1", "one").addOrRules(asList));
-		tasks.add(new StringTask("key2", "two").addOrRules(asList));
+		List<EngineRule<String>> asList = Arrays.asList(new SampleRule(true));
+		tasks.add(new SampleTask("key1", "one").addOrRules(asList));
+		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
 		assert data.get("key1") == "one";
@@ -47,9 +47,9 @@ public class TestOrRules {
 	@Test
 	public void test_TrueFalseOrs_pass() throws EngineException {
 		List<EngineTask<String>> tasks = new ArrayList<>();
-		List<EngineRule<String>> asList = Arrays.asList(new TestRule(true), new TestRule(false));
-		tasks.add(new StringTask("key1", "one").addOrRules(asList));
-		tasks.add(new StringTask("key2", "two").addOrRules(asList));
+		List<EngineRule<String>> asList = Arrays.asList(new SampleRule(true), new SampleRule(false));
+		tasks.add(new SampleTask("key1", "one").addOrRules(asList));
+		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
 		assert data.get("key1") == "one";
@@ -59,9 +59,9 @@ public class TestOrRules {
 	@Test
 	public void test_FalseFalseOrs_fail() throws EngineException {
 		List<EngineTask<String>> tasks = new ArrayList<>();
-		List<EngineRule<String>> asList = Arrays.asList(new TestRule(false), new TestRule(false));
-		tasks.add(new StringTask("key1", "one").addOrRules(asList));
-		tasks.add(new StringTask("key2", "two").addOrRules(asList));
+		List<EngineRule<String>> asList = Arrays.asList(new SampleRule(false), new SampleRule(false));
+		tasks.add(new SampleTask("key1", "one").addOrRules(asList));
+		tasks.add(new SampleTask("key2", "two").addOrRules(asList));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
 		assert data.get("key1") != "one";
@@ -71,10 +71,10 @@ public class TestOrRules {
 	@Test
 	public void test_FalseFalse_FalseTrue_Ors_Rule_2tasks_fail_pass() throws EngineException {
 		List<EngineTask<String>> tasks = new ArrayList<>();
-		List<EngineRule<String>> asList1 = Arrays.asList(new TestRule(false), new TestRule(false));
-		List<EngineRule<String>> asList2 = Arrays.asList(new TestRule(true), new TestRule(false));
-		tasks.add(new StringTask("key1", "one").addOrRules(asList1));
-		tasks.add(new StringTask("key2", "two").addOrRules(asList2));
+		List<EngineRule<String>> asList1 = Arrays.asList(new SampleRule(false), new SampleRule(false));
+		List<EngineRule<String>> asList2 = Arrays.asList(new SampleRule(true), new SampleRule(false));
+		tasks.add(new SampleTask("key1", "one").addOrRules(asList1));
+		tasks.add(new SampleTask("key2", "two").addOrRules(asList2));
 		EngineData<String> data = new EngineData<String>();
 		new EnginePipeline<String>(tasks, data).execute();
 		assert data.get("key1") != "one";

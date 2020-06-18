@@ -3,10 +3,10 @@ package engine.rules;
 import com.engine.EngineData;
 import com.engine.EngineRule;
 
-public class TestRule implements EngineRule<String> {
+public class SampleRule implements EngineRule<String> {
 	private boolean result;
 
-	public TestRule(boolean result) {
+	public SampleRule(boolean result) {
 		this.result = result;
 	}
 

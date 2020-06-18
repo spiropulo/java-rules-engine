@@ -11,7 +11,7 @@ import com.engine.EngineException;
 import com.engine.EnginePipeline;
 import com.engine.EngineTask;
 
-import engine.tasks.StringTask;
+import engine.tasks.SampleTask;
 
 public class TestExceptions {
 
@@ -47,7 +47,7 @@ public class TestExceptions {
 	public void test_NullEngineData_fail() throws EngineException {
 		Exception result = null;
 		try {
-			new EnginePipeline<String>(Arrays.asList(new StringTask("key1", "one")), null).execute();
+			new EnginePipeline<String>(Arrays.asList(new SampleTask("key1", "one")), null).execute();
 		} catch (Exception e) {
 			result = e;
 		} finally {
