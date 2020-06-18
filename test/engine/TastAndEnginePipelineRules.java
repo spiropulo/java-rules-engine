@@ -8,34 +8,34 @@ import com.engine.EnginePipeline;
 import com.engine.EngineTask;
 
 @SuppressWarnings("unchecked")
-public class TastAndGeneralRules extends TestParent {
+public class TastAndEnginePipelineRules extends TestParent {
 	/**
 	 * ***************** General AND Rules *****************
 	 */
 
 	@Test
-	public void test_general_False_fail() throws EngineException {
+	public void test_engine_pipeline_False_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1()), null, rs(f()), data).execute();
 		assert data.get("key1") != "one";
 	}
 
 	@Test
-	public void test_general_TrueFalse_fail() throws EngineException {
+	public void test_engine_pipeline_TrueFalse_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1()), null, rs(f(), t()), data).execute();
 		assert data.get("key1") != "one";
 	}
 
 	@Test
-	public void test_general_True_pass() throws EngineException {
+	public void test_engine_pipeline_True_pass() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1()), null, rs(t()), data).execute();
 		assert data.get("key1") == "one";
 	}
 
 	@Test
-	public void test_general_TrueFalse_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_TrueFalse_2tasks_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), null, rs(f(), t()), data).execute();
 		assert data.get("key1") != "one";
@@ -43,7 +43,7 @@ public class TastAndGeneralRules extends TestParent {
 	}
 
 	@Test
-	public void test_general_pass() throws EngineException {
+	public void test_engine_pipeline_pass() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2(), t3()), rs(f()), rs(t()), data).execute();
 		assert data.get("key1") != "one";
@@ -52,7 +52,7 @@ public class TastAndGeneralRules extends TestParent {
 	}
 
 	@Test
-	public void test_general_fail_pass_fail() throws EngineException {
+	public void test_engine_pipeline_fail_pass_fail() throws EngineException {
 		EngineData<String> data = d();
 		EngineTask<String> t2 = t2();
 		t2.addOrRule(t());
@@ -63,7 +63,7 @@ public class TastAndGeneralRules extends TestParent {
 	}
 
 	@Test
-	public void test_general_fail_pass_pass() throws EngineException {
+	public void test_engine_pipeline_fail_pass_pass() throws EngineException {
 		EngineData<String> data = d();
 		EngineTask<String> t2 = t2().addOrRule(t());
 		EngineTask<String> t3 = t3().addOrRule(t());
@@ -74,7 +74,7 @@ public class TastAndGeneralRules extends TestParent {
 	}
 	
 	@Test
-	public void test_general_fail_fail_pass() throws EngineException {
+	public void test_engine_pipeline_fail_fail_pass() throws EngineException {
 		EngineData<String> data = d();
 		EngineTask<String> t1 = t1().addOrRule(t()).addAndRule(f());
 		EngineTask<String> t2 = t2().addOrRule(t()).addAndRule(f());

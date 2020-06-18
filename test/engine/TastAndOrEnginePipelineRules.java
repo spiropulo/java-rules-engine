@@ -8,13 +8,13 @@ import com.engine.EnginePipeline;
 import com.engine.EngineTask;
 
 @SuppressWarnings("unchecked")
-public class TastAndOrGeneralRules extends TestParent {
+public class TastAndOrEnginePipelineRules extends TestParent {
 	/**
 	 * ***************** General AND, OR Rules *****************
 	 */
 
 	@Test
-	public void test_general_TrueFalseOr_TrueTrueAnd_2tasks_pass() throws EngineException {
+	public void test_engine_pipeline_TrueFalseOr_TrueTrueAnd_2tasks_pass() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(f(), t()), rs(t(), t()), data).execute();
 		assert data.get("key1") == "one";
@@ -22,7 +22,7 @@ public class TastAndOrGeneralRules extends TestParent {
 	}
 
 	@Test
-	public void test_general_FalseFalseOr_TrueTrueAnd_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_FalseFalseOr_TrueTrueAnd_2tasks_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(f(), f()), rs(t(), t()), data).execute();
 		assert data.get("key1") != "one";
@@ -30,7 +30,7 @@ public class TastAndOrGeneralRules extends TestParent {
 	}
 
 	@Test
-	public void test_general_TrueTrueOr_TrueFalseAnd_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_TrueTrueOr_TrueFalseAnd_2tasks_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(t(), t()), rs(t(), f()), data).execute();
 		assert data.get("key1") != "one";
