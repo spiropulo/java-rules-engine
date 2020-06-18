@@ -1,4 +1,4 @@
-# Java Rules Enine
+# Java Rules Engine
 
 This ultra-light-weight rules engine provides an **alternative computational** model and not the usual imperative structures. These structures make it easy to follow a consistent and well understood execution strategy. Development teams can then speak in common terms building **ubiquitous language** around software constitution.
 
@@ -7,12 +7,12 @@ The spirit of this artifact is to assist engineering teams with a common pattern
 
 ## Hello World Example (without rules)
 
-This is a simple example to show how the EnginePipeline executes EngineTask's 
-(In some rules engines Task's are called actions)
+This is a simple example to show how the EnginePipeline executes EngineTasks 
+(In some rules engines Tasks are called actions)
 
 ```diff
 + This simple task will be added to our execution pipeline.
-+ I'm chosing to use <String> as my generic payload.
++ I'm choosing to use <String> as my generic payload.
 ```
 ```java
 import com.engine.EngineData;
@@ -170,3 +170,4 @@ public class TastHelloWorld {
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
