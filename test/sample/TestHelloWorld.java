@@ -57,7 +57,7 @@ public class TestHelloWorld {
 
 		// Then we set both conditions false
 		EngineAction<String> actionFail = new SampleAction("I have 2 conditions false and false... Hello World!");
-		actionFail.addOrCondition(new SampleCondition(true)).addOrCondition(new SampleCondition(false));
+		actionFail.addOrCondition(new SampleCondition(false)).addOrCondition(new SampleCondition(false));
 		new EnginePipeline<String>(Arrays.asList(actionFail), new EngineData<String>()).execute();
 		
 		//No output.
