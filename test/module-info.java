@@ -1,8 +1,8 @@
 module engine {
-	exports engine.rules;
+	exports engine.conditions;
 	exports engine;
 	exports com.engine;
-	exports engine.tasks;
+	exports engine.actions;
 	exports sample;
 
 	requires junit;

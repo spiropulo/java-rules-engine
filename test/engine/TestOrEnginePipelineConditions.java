@@ -7,9 +7,9 @@ import com.engine.EngineException;
 import com.engine.EnginePipeline;
 
 @SuppressWarnings("unchecked")
-public class TestOrEnginePipelineRules extends TestParent {
+public class TestOrEnginePipelineConditions extends TestParent {
 	/**
-	 * ***************** General OR Rules *****************
+	 * ***************** General OR Conditions *****************
 	 */
 
 	@Test
@@ -34,7 +34,7 @@ public class TestOrEnginePipelineRules extends TestParent {
 	}
 
 	@Test
-	public void test_engine_pipeline_TrueFalse_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_TrueFalse_2actions_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(f(), t()), null, data).execute();
 		assert data.get("key1").equals("one");

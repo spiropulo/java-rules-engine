@@ -5,12 +5,12 @@ import org.junit.Test;
 import com.engine.EngineData;
 import com.engine.EngineException;
 import com.engine.EnginePipeline;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
 @SuppressWarnings("unchecked")
-public class TastAndEnginePipelineRules extends TestParent {
+public class TastAndEnginePipelineConditions extends TestParent {
 	/**
-	 * ***************** General AND Rules *****************
+	 * ***************** General AND Conditions *****************
 	 */
 
 	@Test
@@ -35,7 +35,7 @@ public class TastAndEnginePipelineRules extends TestParent {
 	}
 
 	@Test
-	public void test_engine_pipeline_TrueFalse_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_TrueFalse_2actions_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), null, rs(f(), t()), data).execute();
 		assert data.get("key1") != "one";
@@ -54,8 +54,8 @@ public class TastAndEnginePipelineRules extends TestParent {
 	@Test
 	public void test_engine_pipeline_fail_pass_fail() throws EngineException {
 		EngineData<String> data = d();
-		EngineTask<String> t2 = t2();
-		t2.addOrRule(t());
+		EngineAction<String> t2 = t2();
+		t2.addOrCondition(t());
 		new EnginePipeline<String>(ts(t1(), t2, t3()), rs(f()), rs(t()), data).execute();
 		assert data.get("key1") != "one";
 		assert data.get("key2") == "two";
@@ -65,8 +65,8 @@ public class TastAndEnginePipelineRules extends TestParent {
 	@Test
 	public void test_engine_pipeline_fail_pass_pass() throws EngineException {
 		EngineData<String> data = d();
-		EngineTask<String> t2 = t2().addOrRule(t());
-		EngineTask<String> t3 = t3().addOrRule(t());
+		EngineAction<String> t2 = t2().addOrCondition(t());
+		EngineAction<String> t3 = t3().addOrCondition(t());
 		new EnginePipeline<String>(ts(t1(), t2, t3), rs(f()), rs(t()), data).execute();
 		assert data.get("key1") != "one";
 		assert data.get("key2") == "two";
@@ -76,9 +76,9 @@ public class TastAndEnginePipelineRules extends TestParent {
 	@Test
 	public void test_engine_pipeline_fail_fail_pass() throws EngineException {
 		EngineData<String> data = d();
-		EngineTask<String> t1 = t1().addOrRule(t()).addAndRule(f());
-		EngineTask<String> t2 = t2().addOrRule(t()).addAndRule(f());
-		EngineTask<String> t3 = t3().addOrRule(t());
+		EngineAction<String> t1 = t1().addOrCondition(t()).addAndCondition(f());
+		EngineAction<String> t2 = t2().addOrCondition(t()).addAndCondition(f());
+		EngineAction<String> t3 = t3().addOrCondition(t());
 		new EnginePipeline<String>(ts(t1, t2, t3), rs(f()), rs(t()), data).execute();
 		assert data.get("key1") != "one";
 		assert data.get("key2") != "two";

@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.engine.EngineData;
-import com.engine.EngineRule;
-import com.engine.EngineTask;
+import com.engine.EngineCondition;
+import com.engine.EngineAction;
 
-import engine.rules.SampleRule;
-import engine.tasks.SampleTask;
+import engine.conditions.SampleCondition;
+import engine.actions.SampleAction;
 
 @SuppressWarnings("unchecked")
 public class TestParent {
 
-	protected List<EngineRule<String>> rs(EngineRule<String>... rules) {
-		List<EngineRule<String>> result = new ArrayList<>();
-		for (EngineRule<String> r : rules) {
+	protected List<EngineCondition<String>> rs(EngineCondition<String>... conditions) {
+		List<EngineCondition<String>> result = new ArrayList<>();
+		for (EngineCondition<String> r : conditions) {
 			result.add(r);
 		}
 
 		return result;
 	}
 
-	protected List<EngineTask<String>> ts(EngineTask<String>... tasks) {
-		List<EngineTask<String>> result = new ArrayList<>();
-		for (EngineTask<String> r : tasks) {
+	protected List<EngineAction<String>> ts(EngineAction<String>... actions) {
+		List<EngineAction<String>> result = new ArrayList<>();
+		for (EngineAction<String> r : actions) {
 			result.add(r);
 		}
 
@@ -35,24 +35,24 @@ public class TestParent {
 		return new EngineData<String>();
 	}
 
-	protected EngineRule<String> f() {
-		return new SampleRule(false);
+	protected EngineCondition<String> f() {
+		return new SampleCondition(false);
 	}
 
-	protected EngineRule<String> t() {
-		return new SampleRule(true);
+	protected EngineCondition<String> t() {
+		return new SampleCondition(true);
 	}
 
-	protected EngineTask<String> t1() {
-		return new SampleTask("key1", "one");
+	protected EngineAction<String> t1() {
+		return new SampleAction("key1", "one");
 	}
 
-	protected EngineTask<String> t2() {
-		return new SampleTask("key2", "two");
+	protected EngineAction<String> t2() {
+		return new SampleAction("key2", "two");
 	}
 
-	protected EngineTask<String> t3() {
-		return new SampleTask("key3", "three");
+	protected EngineAction<String> t3() {
+		return new SampleAction("key3", "three");
 	}
 	
 }

@@ -1,12 +1,12 @@
-package engine.rules;
+package engine.conditions;
 
 import com.engine.EngineData;
-import com.engine.EngineRule;
+import com.engine.EngineCondition;
 
-public class SampleRule implements EngineRule<String> {
+public class SampleCondition implements EngineCondition<String> {
 	private boolean result;
 
-	public SampleRule(boolean result) {
+	public SampleCondition(boolean result) {
 		this.result = result;
 	}
 

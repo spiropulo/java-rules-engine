@@ -1,13 +1,13 @@
-package engine.tasks;
+package engine.actions;
 
 import com.engine.EngineData;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
-public class SampleTask extends EngineTask<String> {
+public class SampleAction extends EngineAction<String> {
 	private String key;
 	private String value;
 
-	public SampleTask(String key, String value) {
+	public SampleAction(String key, String value) {
 		super();
 		this.key = key;
 		this.value = value;

@@ -5,16 +5,16 @@ import org.junit.Test;
 import com.engine.EngineData;
 import com.engine.EngineException;
 import com.engine.EnginePipeline;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
 @SuppressWarnings("unchecked")
-public class TestAndOrEnginePipelineRules extends TestParent {
+public class TestAndOrEnginePipelineConditions extends TestParent {
 	/**
-	 * ***************** General AND, OR Rules *****************
+	 * ***************** General AND, OR Conditions *****************
 	 */
 
 	@Test
-	public void test_engine_pipeline_TrueFalseOr_TrueTrueAnd_2tasks_pass() throws EngineException {
+	public void test_engine_pipeline_TrueFalseOr_TrueTrueAnd_2actions_pass() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(f(), t()), rs(t(), t()), data).execute();
 		assert data.get("key1").equals("one");
@@ -22,7 +22,7 @@ public class TestAndOrEnginePipelineRules extends TestParent {
 	}
 
 	@Test
-	public void test_engine_pipeline_FalseFalseOr_TrueTrueAnd_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_FalseFalseOr_TrueTrueAnd_2actions_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(f(), f()), rs(t(), t()), data).execute();
 		assert data.get("key1") == null;
@@ -30,7 +30,7 @@ public class TestAndOrEnginePipelineRules extends TestParent {
 	}
 
 	@Test
-	public void test_engine_pipeline_TrueTrueOr_TrueFalseAnd_2tasks_fail() throws EngineException {
+	public void test_engine_pipeline_TrueTrueOr_TrueFalseAnd_2actions_fail() throws EngineException {
 		EngineData<String> data = d();
 		new EnginePipeline<String>(ts(t1(), t2()), rs(t(), t()), rs(t(), f()), data).execute();
 		assert data.get("key1") == null;
@@ -40,8 +40,8 @@ public class TestAndOrEnginePipelineRules extends TestParent {
 	@Test
 	public void test_TrueOr_general_FalseOr_TrueAnd_pass() throws EngineException {
 		EngineData<String> data = d();
-		EngineTask<String> t1 = t1();
-		t1.addOrRule(t());
+		EngineAction<String> t1 = t1();
+		t1.addOrCondition(t());
 		new EnginePipeline<String>(ts(t1), rs(f()), rs(t()), data).execute();
 		assert data.get("key1").equals("one");
 	}
@@ -49,8 +49,8 @@ public class TestAndOrEnginePipelineRules extends TestParent {
 	@Test
 	public void test_FalseAnd_general_TrueOr_TrueAnd_fail() throws EngineException {
 		EngineData<String> data = d();
-		EngineTask<String> t1 = t1();
-		t1.addAndRule(f());
+		EngineAction<String> t1 = t1();
+		t1.addAndCondition(f());
 		new EnginePipeline<String>(ts(t1), rs(t()), rs(t()), data).execute();
 		assert data.get("key1") == null;
 	}

@@ -5,22 +5,21 @@ This ultra-light-weight rules engine provides an **alternative computational** m
 The spirit of this artifact is to assist engineering teams with a common pattern that can be leverage across the enterprise. It is **completely** unopinionated, in terms of frameworks. It introduces no new dependencies to an application stack.
 
 
-## Hello World Example (without rules)
+## Hello World Example (without conditions)
 
-This is a simple example to show how the EnginePipeline executes EngineTasks 
-(In some rules engines Tasks are called actions)
+This is a simple example to show how the EnginePipeline executes EngineActions.
 
 ```diff
-+ This simple task will be added to our execution pipeline.
++ This simple action will be added to our execution pipeline.
 + I'm choosing to use <String> as my generic payload.
 ```
 ```java
 import com.engine.EngineData;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
-public class SampleTask extends EngineTask<String> {
+public class SampleAction extends EngineAction<String> {
 	private String content;
-	public SampleTask(String content) {
+	public SampleAction(String content) {
 		this.content = content;
 	}
 	
@@ -41,12 +40,12 @@ import org.junit.Test;
 import com.engine.EngineData;
 import com.engine.EngineException;
 import com.engine.EnginePipeline;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
 public class TestHelloWorld {
 	@Test
 	public void test_helloWorld() throws EngineException {
-		new EnginePipeline<String>(Arrays.asList(new SampleTask("Hello World!")), new EngineData<String>()).execute();
+		new EnginePipeline<String>(Arrays.asList(new SampleAction("Hello World!")), new EngineData<String>()).execute();
 	}
 }
 ```
@@ -55,20 +54,20 @@ public class TestHelloWorld {
   Hello World!
 ```
 
-## Hello World Example (with AND rules)
+## Hello World Example (with AND conditions)
 
-This example shows how an EngineTask executes with AND rules. All of the AND rules must pass for a task to execute. We can attach an unlimited number of AND rules to any task (You should consider performance!). We can also pass AND rules to an ExecutionPipeline. These rules will be invoked before each task in the pipeline is executed, and they will adhere to the statute of AND rules execution. 
+This example shows how an EngineAction executes with AND conditions. All of the AND conditions must pass for an action to execute. We can attach an unlimited number of AND conditions to any action (You should consider performance!). We can also pass AND conditions to an ExecutionPipeline. These conditions will be invoked before each action in the pipeline is executed, and they will adhere to the statute of AND conditions execution. 
 
 ```diff
-+ Here is our sample rule.
++ Here is our sample condition.
 ```
 ```java
 import com.engine.EngineData;
-import com.engine.EngineRule;
+import com.engine.EngineCondition;
 
-public class SampleRule implements EngineRule<String> {
+public class SampleCondition implements EngineCondition<String> {
 	private boolean result;
-	public SampleRule(boolean result) {
+	public SampleCondition(boolean result) {
 		this.result = result;
 	}
 	@Override
@@ -77,8 +76,8 @@ public class SampleRule implements EngineRule<String> {
 	}
 }
 ```
-We are going to first set the rule to return true, so Hello World! will execute. Then we'll set it to false to prevent execution. Then we'll set back to true and pass a **general** ExecutionPipeline rule, we'll set this rule to false to prevent execution.
-```diff
+We are going to first set the condition to return true, so Hello World! will execute. Then we'll set it to false to prevent execution. Then we'll set back to true and pass a **general** ExecutionPipeline condition, we'll set this condition to false to prevent execution.
+```java
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -86,49 +85,49 @@ import org.junit.Test;
 import com.engine.EngineData;
 import com.engine.EngineException;
 import com.engine.EnginePipeline;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
-import engine.rules.SampleRule;
+import engine.conditions.SampleCondition;
 
 public class TestHelloWorld {
 	@Test
 	public void test_helloWorld_and() throws EngineException {
--		// First set the rule to true so we see Hello World! in the out put.
-		EngineTask<String> taskPass = new SampleTask("I have a true task rule... Hello World!");
-		taskPass.addAndRule(new SampleRule(true));
-		new EnginePipeline<String>(Arrays.asList(taskPass), new EngineData<String>()).execute();
+		// First set the condition to true so we see Hello World! in the out put.
+		EngineAction<String> actionPass = new SampleAction("I have a true action condition... Hello World!");
+		actionPass.addAndCondition(new SampleCondition(true));
+		new EnginePipeline<String>(Arrays.asList(actionPass), new EngineData<String>()).execute();
 		
-+		//output: I have a true task rule... Hello World!
+		//output: I have a true action condition... Hello World!
 
--		// Now we set the rule to false to prevent SampleTask from execution.
-		EngineTask<String> taskFail = new SampleTask("I have a false rule...");
-		taskFail.addAndRule(new SampleRule(false));
-		new EnginePipeline<String>(Arrays.asList(taskFail), new EngineData<String>()).execute();
+		// Now we set the condition to false to prevent SampleAction from execution.
+		EngineAction<String> actionFail = new SampleAction("I have a false condition...");
+		actionFail.addAndCondition(new SampleCondition(false));
+		new EnginePipeline<String>(Arrays.asList(actionFail), new EngineData<String>()).execute();
 		
-+		//No output.
+		//No output.
 
--		// Now back to true but with a EnginePipeline rule set to false.
-		EngineTask<String> taskFailWithGeneralRule1 = new SampleTask("I have a true task rule but a false pipeline rule...");
-		taskFailWithGeneralRule1.addAndRule(new SampleRule(true));
-		new EnginePipeline<String>(Arrays.asList(taskFailWithGeneralRule1), null, Arrays.asList(new SampleRule(false)),
+		// Now back to true but with a EnginePipeline condition set to false.
+		EngineAction<String> actionFailWithGeneralCondition1 = new SampleAction("I have a true action condition but a false pipeline condition...");
+		actionFailWithGeneralCondition1.addAndCondition(new SampleCondition(true));
+		new EnginePipeline<String>(Arrays.asList(actionFailWithGeneralCondition1), null, Arrays.asList(new SampleCondition(false)),
 				new EngineData<String>()).execute();
 		
-+		//No output.
+		//No output.
 
--		// Now back to true but with a EnginePipeline rule set to true.
-		EngineTask<String> taskFailWithGeneralRule2 = new SampleTask("I have a true task rule and a true pipeline rule... Hello World!");
-		taskFailWithGeneralRule2.addAndRule(new SampleRule(true));
-		new EnginePipeline<String>(Arrays.asList(taskFailWithGeneralRule2), null, Arrays.asList(new SampleRule(true)),
+		// Now back to true but with a EnginePipeline condition set to true.
+		EngineAction<String> actionFailWithGeneralCondition2 = new SampleAction("I have a true action condition and a true pipeline condition... Hello World!");
+		actionFailWithGeneralCondition2.addAndCondition(new SampleCondition(true));
+		new EnginePipeline<String>(Arrays.asList(actionFailWithGeneralCondition2), null, Arrays.asList(new SampleCondition(true)),
 				new EngineData<String>()).execute();
 		
-+		//output: I have a true task rule and a true pipeline rule... Hello World!
+		//output: I have a true action condition and a true pipeline condition... Hello World!
 	}
 }
 ```
-# Hello World Example (with OR rules)
-This example shows how an EngineTask executes with OR rules. At least one of the OR rules must pass for a task to execute. We can attach an unlimited number of OR rules to any task (You should consider performance!). We can also pass OR rules to an ExecutionPipeline. These rules will be invoked before each task in the pipeline is executed, and they will adhere to the statute of OR rules execution.
+# Hello World Example (with OR conditions)
+This example shows how an EngineAction executes with OR conditions. At least one of the OR conditions must pass for a action to execute. We can attach an unlimited number of OR conditions to any action (You should consider performance!). We can also pass OR conditions to an ExecutionPipeline. These conditions will be invoked before each action in the pipeline is executed, and they will adhere to the statute of OR conditions execution.
 
-```diff
+```java
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -136,34 +135,36 @@ import org.junit.Test;
 import com.engine.EngineData;
 import com.engine.EngineException;
 import com.engine.EnginePipeline;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
-import engine.rules.SampleRule;
+import engine.conditions.SampleCondition;
 
 public class TestHelloWorld {
 	@Test
 	public void test_helloWorld_or() throws EngineException {
--		// First set one rule true and one false...
-		EngineTask<String> taskPass = new SampleTask("I have 2 rules true and false... Hello World!");
-		taskPass.addOrRule(new SampleRule(true)).addOrRule(new SampleRule(true));
-		new EnginePipeline<String>(Arrays.asList(taskPass), new EngineData<String>()).execute();
+		// First set one condition true and one false...
+		EngineAction<String> actionPass = new SampleAction("I have 2 conditions true and false... Hello World!");
+		actionPass.addOrCondition(new SampleCondition(true)).addOrCondition(new SampleCondition(true));
+		new EnginePipeline<String>(Arrays.asList(actionPass), new EngineData<String>()).execute();
 		
-+		//output: I have 2 rules true and false... Hello World!
+		//output: I have 2 conditions true and false... Hello World!
 
--		// Then we set both rules false
-		EngineTask<String> taskFail = new SampleTask("I have 2 rules false and false... Hello World!");
-		taskFail.addOrRule(new SampleRule(true)).addOrRule(new SampleRule(false));
-		new EnginePipeline<String>(Arrays.asList(taskFail), new EngineData<String>()).execute();
+		// Then we set both conditions false
+		EngineAction<String> actionFail = new SampleAction("I have 2 conditions false and false... Hello World!");
+		actionFail.addOrCondition(new SampleCondition(true)).addOrCondition(new SampleCondition(false));
+		new EnginePipeline<String>(Arrays.asList(actionFail), new EngineData<String>()).execute();
 		
-+		//No output.
+		//No output.
 
--		// Then we set both rules false, and we pass a pipeline true rule...
-		EngineTask<String> taskFailWithGeneralRule1 = new SampleTask("I have 2 rules false and false, with a true pipeline rule... Hello World!");
-		taskFailWithGeneralRule1.addAndRule(new SampleRule(true));
-		new EnginePipeline<String>(Arrays.asList(taskFailWithGeneralRule1), Arrays.asList(new SampleRule(true)), null,
+		// Then we set both conditions false, and we pass a pipeline true condition...
+		EngineAction<String> actionFailWithGeneralCondition1 = 
+			new SampleAction("I have 2 conditions false and false, with a true pipeline condition... Hello World!");
+		actionFailWithGeneralCondition1.addAndCondition(new SampleCondition(true));
+		new EnginePipeline<String>(Arrays.asList(actionFailWithGeneralCondition1), 
+			Arrays.asList(new SampleCondition(true)), null,
 				new EngineData<String>()).execute();
 		
-+		//output: I have 2 rules false and false, with a true pipeline rule... Hello World!
+		//output: I have 2 conditions false and false, with a true pipeline condition... Hello World!
 	}
 }
 ```

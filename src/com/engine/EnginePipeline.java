@@ -3,14 +3,14 @@ package com.engine;
 import java.util.List;
 
 public class EnginePipeline<T> {
-	private List<EngineTask<T>> tasks;
+	private List<EngineAction<T>> actions;
 	private EngineData<T> data;
 
-	public EnginePipeline(List<EngineTask<T>> tasks, EngineData<T> data) throws EngineException {
-		if (tasks == null || tasks.size() <= 0) {
-			throw new EngineException("At least one task must be provided.");
+	public EnginePipeline(List<EngineAction<T>> actions, EngineData<T> data) throws EngineException {
+		if (actions == null || actions.size() <= 0) {
+			throw new EngineException("At least one action must be provided.");
 		}
-		this.tasks = tasks;
+		this.actions = actions;
 
 		if (data == null) {
 			throw new EngineException("EngineData cannot be null.");
@@ -19,19 +19,19 @@ public class EnginePipeline<T> {
 		}
 	}
 
-	public EnginePipeline(List<EngineTask<T>> tasks, List<EngineRule<T>> orRules, List<EngineRule<T>> andRules,
+	public EnginePipeline(List<EngineAction<T>> actions, List<EngineCondition<T>> orConditions, List<EngineCondition<T>> andConditions,
 			EngineData<T> data) throws EngineException {
-		if (tasks == null || tasks.size() <= 0) {
-			throw new EngineException("At least one task must be provided.");
+		if (actions == null || actions.size() <= 0) {
+			throw new EngineException("At least one action must be provided.");
 		}
-		this.tasks = tasks;
+		this.actions = actions;
 
-		if (orRules != null && orRules.size() > 0) {
-			this.tasks.forEach(t -> t.addOrRules(orRules));
+		if (orConditions != null && orConditions.size() > 0) {
+			this.actions.forEach(t -> t.addOrConditions(orConditions));
 		}
 
-		if (andRules != null && andRules.size() > 0) {
-			this.tasks.forEach(t -> t.addAndRules(andRules));
+		if (andConditions != null && andConditions.size() > 0) {
+			this.actions.forEach(t -> t.addAndConditions(andConditions));
 		}
 
 		if (data == null) {
@@ -42,19 +42,19 @@ public class EnginePipeline<T> {
 	}
 
 	public void execute() {
-		this.tasks.forEach(t -> {
-			if (this.passRules(t)) {
+		this.actions.forEach(t -> {
+			if (this.passConditions(t)) {
 				t.execute(this.data);
 			}
 		});
 
 	}
 
-	private boolean passRules(EngineTask<T> task) {
-		boolean ands = task.getAndRules().size() == 0 ? true
-				: task.getAndRules().stream().allMatch(r -> r.execute(this.data));
-		boolean ors = task.getOrRules().size() == 0 ? true
-				: task.getOrRules().stream().anyMatch(r -> r.execute(this.data));
+	private boolean passConditions(EngineAction<T> action) {
+		boolean ands = action.getAndConditions().size() == 0 ? true
+				: action.getAndConditions().stream().allMatch(r -> r.execute(this.data));
+		boolean ors = action.getOrConditions().size() == 0 ? true
+				: action.getOrConditions().stream().anyMatch(r -> r.execute(this.data));
 		return ands && ors;
 	}
 }

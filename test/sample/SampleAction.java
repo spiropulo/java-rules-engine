@@ -1,11 +1,11 @@
 package sample;
 
 import com.engine.EngineData;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
-public class SampleTask extends EngineTask<String> {
+public class SampleAction extends EngineAction<String> {
 	private String content;
-	public SampleTask(String content) {
+	public SampleAction(String content) {
 		this.content = content;
 	}
 	

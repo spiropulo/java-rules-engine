@@ -9,9 +9,9 @@ import org.junit.Test;
 import com.engine.EngineData;
 import com.engine.EngineException;
 import com.engine.EnginePipeline;
-import com.engine.EngineTask;
+import com.engine.EngineAction;
 
-import engine.tasks.SampleTask;
+import engine.actions.SampleAction;
 
 public class TestExceptions {
 
@@ -19,11 +19,11 @@ public class TestExceptions {
 	 * ***************** Exceptions *****************
 	 */
 	@Test
-	public void test_EmptyTasks_fail() throws EngineException {
+	public void test_EmptyActions_fail() throws EngineException {
 		Exception result = null;
 		try {
-			List<EngineTask<String>> tasks = new ArrayList<>();
-			new EnginePipeline<String>(tasks, new EngineData<String>()).execute();
+			List<EngineAction<String>> actions = new ArrayList<>();
+			new EnginePipeline<String>(actions, new EngineData<String>()).execute();
 		} catch (Exception e) {
 			result = e;
 		} finally {
@@ -32,7 +32,7 @@ public class TestExceptions {
 	}
 
 	@Test
-	public void test_NullTasks_fail() throws EngineException {
+	public void test_NullActions_fail() throws EngineException {
 		Exception result = null;
 		try {
 			new EnginePipeline<String>(null, new EngineData<String>()).execute();
@@ -47,7 +47,7 @@ public class TestExceptions {
 	public void test_NullEngineData_fail() throws EngineException {
 		Exception result = null;
 		try {
-			new EnginePipeline<String>(Arrays.asList(new SampleTask("key1", "one")), null).execute();
+			new EnginePipeline<String>(Arrays.asList(new SampleAction("key1", "one")), null).execute();
 		} catch (Exception e) {
 			result = e;
 		} finally {

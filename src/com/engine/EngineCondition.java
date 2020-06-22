@@ -1,5 +1,5 @@
 package com.engine;
 
-public interface EngineRule<T> {
+public interface EngineCondition<T> {
 	public boolean execute(EngineData<T> pipelineData);
 }
