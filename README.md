@@ -1,9 +1,8 @@
 # Java Rules Engine
 
-This ultra-light-weight rules engine provides an **alternative computational** model and not the usual imperative structures. These structures make it easy to follow a consistent and well understood execution strategy. Development teams can then speak in common terms building **ubiquitous language** around software constitution.
+This ultra-lightweight rules engine offers a streamlined computational model that diverges from traditional imperative structures. It promotes a clear, consistent, and easily understood execution strategy, enabling development teams to establish a shared, ubiquitous language for software architecture.
 
-The spirit of this artifact is to assist engineering teams with a common pattern that can be leverage across the enterprise. It is **completely** unopinionated, in terms of frameworks. It introduces no new dependencies to an application stack.
-
+Designed to support engineering teams, this artifact provides a versatile pattern that can be adopted across the enterprise. It remains unopinionated about frameworks and introduces no additional dependencies to the application stack, ensuring seamless integration and flexibility.
 
 ## Hello World Example (without conditions)
 
